@@ -5,8 +5,7 @@ mongoose
   .then(() => {
     console.log("DataBase Connected");
   })
-  .catch(() => {
-    console.log("DataBase Not Connected");
+  .catch((error) => {
+    console.log("Database Connection Error:", error);
   });
-
 module.exports = mongoose;

@@ -1,8 +1,6 @@
 const classesData = require("../Model/classSchema");
-
 const postClassReq = async (req, res) => {
   const { classes, status } = req.body;
-
   try {
     const data = classesData({
       classes: classes,

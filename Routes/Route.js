@@ -121,5 +121,5 @@ router.put("/update/states", VerifyToken, updateStateStatusReq);
 
 router.post("/post/state/city", VerifyToken, postStateCityReq);
 router.get("/get/state/city", VerifyToken, getStateCityReq);
-router.put("/update/states", VerifyToken, updateStateStatusReq);
+router.put("/update/state/city", VerifyToken, updateStateCityReq);
 module.exports = router;

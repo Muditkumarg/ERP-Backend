@@ -1,16 +1,21 @@
 const StateData = require("../Model/StateSchema");
-const postStateReq = (req, res) => {
+const postStateReq = async (req, res) => {
   const { state, status } = req.body;
 
   try {
-    const data = StateData({
-      state: state,
-      status: status,
-    }).save();
-    return res.json({
-      message: "Record added successfully",
-      success: true,
-    });
+    const matchedState = await StateData.find({ state: state });
+    if (matchedState) {
+      res.json({ success: false, message: "State Already exist" });
+    } else {
+      const data = await StateData({
+        state: state,
+        status: status,
+      }).save();
+      return res.json({
+        message: "Record added successfully",
+        success: true,
+      });
+    }
   } catch (error) {
     res.json({ message: "something went wrong", success: false });
   }
@@ -42,11 +47,9 @@ const updateStateStatusReq = async (req, res) => {
   } catch (error) {
     // Handle specific errors, log them, and provide a general error message
     console.error("Error updating record:", error);
-
     res.status(500).json({ success: false, message: "Something went wrong" });
   }
 };
-
 module.exports = {
   postStateReq,
   getStateReq,

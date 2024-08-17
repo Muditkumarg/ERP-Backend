@@ -2,7 +2,7 @@ const StateCityData = require("../Model/stateCitySchema");
 const StateData = require("../Model/StateSchema");
 const postStateCityReq = async (req, res) => {
   const { state, city, status } = req.body;
-  console.log(req.body);
+
   try {
     const stateData = await StateData.findOne({ state: state });
     if (!stateData) {
@@ -31,12 +31,12 @@ const getStateCityReq = async (req, res) => {
   }
 };
 const updateStateCityReq = async (req, res) => {
-  const { _id, classes, status } = req.body[0];
+  const { _id, city, status } = req.body[0];
   console.log(_id);
   try {
     // Assuming classesData is a valid Mongoose model
-    const data = await classesData.findByIdAndUpdate(_id, {
-      classes: classes,
+    const data = await StateCityData.findByIdAndUpdate(_id, {
+      city: city,
       status: status,
     });
     if (!data) {
@@ -45,7 +45,6 @@ const updateStateCityReq = async (req, res) => {
         .status(404)
         .json({ success: false, message: "Record not found" });
     }
-
     res.json({ success: true, message: "Record Updated Successfully" });
   } catch (error) {
     // Handle specific errors, log them, and provide a general error message
